@@ -1,6 +1,9 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+
 
 const app = express();
+app.use(bodyParser.json());
 
 // const to hold temp database objects
 const database = {
@@ -40,6 +43,7 @@ app.post('/signin', (req, res) => {
     res.status(400).json('error logging in');
   }
 });
+
 
 app.listen(3000, () => {
   console.log('works');
