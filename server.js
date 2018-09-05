@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcrypt-nodejs');
 
 const app = express();
 app.use(bodyParser.json());
@@ -30,7 +31,6 @@ app.get('/', (req, res) => {
 });
 
 // /signing --> POST = success/fail
-
 app.post('/signin', (req, res) => {
   // verify email and password given match whats in db
   if (req.body.email === database.users[0].email &&
