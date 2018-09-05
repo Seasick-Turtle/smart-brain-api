@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-
 const app = express();
 app.use(bodyParser.json());
 
@@ -42,6 +41,23 @@ app.post('/signin', (req, res) => {
   } else {
     res.status(400).json('error logging in');
   }
+});
+
+
+// /register --> POST = user
+app.post('/register', (req, res) => {
+  const { email, name, password } = req.body;
+  database.users.push({
+    id: '125',
+    name: name,
+    email: email,
+    password: password,
+    entries: 0,
+    joined: new Date()
+  });
+
+  // responds with newest user
+  res.json(database.users[database.users.length - 1]);
 });
 
 
