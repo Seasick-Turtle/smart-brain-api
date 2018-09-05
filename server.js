@@ -60,6 +60,25 @@ app.post('/register', (req, res) => {
   res.json(database.users[database.users.length - 1]);
 });
 
+// /profile/:userID --> GET = user
+app.get('/profile/:id', (req, res) => {
+  const { id } = req.params;
+  let found = false;
+  // checks each user object to see if id exists
+  database.users.forEach(user => {
+    if (user.id === id) {
+      // if it does, set found to true, return user
+      found = true;
+      return res.json(user);
+    }
+  });
+
+  // otherwise error
+  if(!found) {
+    res.status(400).json('not found');
+  }
+});
+
 
 app.listen(3000, () => {
   console.log('works');
