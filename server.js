@@ -2,10 +2,21 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
+const knew = require('knex')({
+  client: 'pg,',
+  connection: {
+    host : '127.0.0.1',
+    user : 'postgres',
+    password : '',
+    database : 'smart_brain'
+  }
+});
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
+
+
 
 // const to hold temp database objects
 const database = {
