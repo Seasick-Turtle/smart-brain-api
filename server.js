@@ -5,7 +5,7 @@ const cors = require('cors');
 const knex = require('knex');
 require('dotenv').config();
 
-const postgres = knex({
+const db = knex({
   client: 'pg',
   connection: {
     host : '127.0.0.1',
@@ -14,12 +14,6 @@ const postgres = knex({
     database : 'smart_brain'
   }
 });
-
-postgres.select('*').from('users').then(data => {
-  console.log(data);
-});
-
-
 
 const app = express();
 app.use(bodyParser.json());
@@ -69,17 +63,22 @@ app.post('/signin', (req, res) => {
 // /register --> PUT = user
 app.post('/register', (req, res) => {
   const { email, name, password } = req.body;
-  database.users.push({
-    id: '125',
-    name: name,
-    email: email,
-    password: password,
-    entries: 0,
-    joined: new Date()
-  });
 
-  // responds with newest user
-  res.json(database.users[database.users.length - 1]);
+  // use knex to insert new user into database
+  db('users')
+    .returning('*')
+    .insert({
+    email,
+    name,
+    joined: new Date()
+  })
+    .then(user => {
+      // respond with user object
+      res.json(user[0]);
+    })
+    // if unable to register return error message
+    .catch(err => res.status(400).json('unable to register'));
+
 });
 
 // /profile/:userID --> GET = user
