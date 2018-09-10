@@ -84,20 +84,20 @@ app.post('/register', (req, res) => {
 // /profile/:userID --> GET = user
 app.get('/profile/:id', (req, res) => {
   const { id } = req.params;
-  let found = false;
-  // checks each user object to see if id exists
-  database.users.forEach(user => {
-    if (user.id === id) {
-      // if it does, set found to true, return user
-      found = true;
-      return res.json(user);
-    }
-  });
 
-  // otherwise error
-  if(!found) {
-    res.status(400).json('not found');
-  }
+  // checks each user object to see if id exists
+  db.select('*').from('users').where({ id })
+    .then(user => {
+      // if returned user has data stored return user
+      if (user.length) {
+        res.json(user[0]);
+      } else {
+        // otherwise, instead of returning empty array and status 200
+        // return 400 and not found
+        res.status(400).json('Not found');
+      }
+    })
+    .catch(err => res.status(400).json('Error getting user'));
 });
 
 
