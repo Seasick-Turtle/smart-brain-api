@@ -2,15 +2,24 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
-const knew = require('knex')({
-  client: 'pg,',
+const knex = require('knex');
+require('dotenv').config();
+
+const postgres = knex({
+  client: 'pg',
   connection: {
     host : '127.0.0.1',
     user : 'postgres',
-    password : '',
+    password : process.env.PG_PASSWORD,
     database : 'smart_brain'
   }
 });
+
+postgres.select('*').from('users').then(data => {
+  console.log(data);
+});
+
+
 
 const app = express();
 app.use(bodyParser.json());
@@ -111,8 +120,6 @@ app.put('/image', (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log('works');
-});
+app.listen(3000);
 
 
