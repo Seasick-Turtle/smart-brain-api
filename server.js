@@ -13,6 +13,7 @@ const database = {
     {
       id: '123',
       name: 'John',
+      password: 'cookies',
       email: 'john@gmail.com',
       entries: 0,
       joined: new Date()
@@ -20,6 +21,7 @@ const database = {
     {
       id: '124',
       name: 'Sally',
+      password: 'bananas',
       email: 'sally@gmail.com',
       entries: 0,
       joined: new Date()
@@ -37,14 +39,14 @@ app.post('/signin', (req, res) => {
   // verify email and password given match whats in db
   if (req.body.email === database.users[0].email &&
         req.body.password === database.users[0].password) {
-    res.json('success');
+    res.json(database.users[0]);
   } else {
     res.status(400).json('error logging in');
   }
 });
 
 
-// /register --> POST = user
+// /register --> PUT = user
 app.post('/register', (req, res) => {
   const { email, name, password } = req.body;
   database.users.push({
