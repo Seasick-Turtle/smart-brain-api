@@ -1,4 +1,4 @@
-const getImageCount = (req, res, db) => {
+const handleImage = (req, res, db) => {
   const { id } = req.body;
 
   // update entry count by 1 in users table for chosen user
@@ -13,5 +13,5 @@ const getImageCount = (req, res, db) => {
 };
 
 module.exports = {
-  getImageCount
+  handleImage
 };

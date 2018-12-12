@@ -36,11 +36,11 @@ app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcry
 app.post('/signin', (req, res) => { signIn.handleSignIn(req, res, db, bcrypt)});
 
 // /profile/:userID --> GET = user
-app.get('/profile/:id', (req, res) => { profile.getProfile(req, res, db)});
+app.get('/profile/:id', (req, res) => { profile.handleGetProfile(req, res, db)});
 
 
 // /image --> PUT --> user
-app.put('/image', (req, res) => { image.getImageCount(req, res, db)});
+app.put('/image', (req, res) => { image.handleImage(req, res, db)});
 
 app.listen(3000);
 

@@ -1,5 +1,5 @@
 
-const getProfile = (req, res, db) => {
+const handleGetProfile = (req, res, db) => {
   const { id } = req.params;
 
   // checks each user object to see if id exists
@@ -18,5 +18,5 @@ const getProfile = (req, res, db) => {
 };
 
 module.exports = {
-  getProfile
+  handleGetProfile
 };
