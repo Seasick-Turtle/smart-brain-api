@@ -38,9 +38,9 @@ app.post('/signin', (req, res) => { signIn.handleSignIn(req, res, db, bcrypt)});
 // /profile/:userID --> GET = user
 app.get('/profile/:id', (req, res) => { profile.handleGetProfile(req, res, db)});
 
-
 // /image --> PUT --> user
 app.put('/image', (req, res) => { image.handleImage(req, res, db)});
+app.post('/imageurl', (req, res) => { image.handleAPICall(req, res)});
 
 app.listen(3000);
 

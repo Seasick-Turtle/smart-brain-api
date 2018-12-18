@@ -1,5 +1,11 @@
 const handleRegister = (req, res, db, bcrypt) => {
   const { email, name, password } = req.body;
+
+  // ensure the user enters all appropriate information
+  if (!email || !name || !password) {
+    return res.status(400).json('incorrect form submission')
+  }
+
   const hash = bcrypt.hashSync(password);
 
   // use transaction to keep login and user tables consistent with each other
